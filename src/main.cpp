@@ -21,6 +21,7 @@ char appName[FILENAME_MAX_LENGTH];
 FILE *srcFile;
 FILE *ficMakefile;
 char makefile[FILENAME_MAX_LENGTH]="makefile.result";
+char repertoireInstallation[FILENAME_MAX_LENGTH]="~/bin";
 int nbSrcFiles=0;
 char ligne[LINE_MAX_LENGTH];
 char compilateur[10]="c++";
@@ -28,6 +29,8 @@ char ligneCompilation[100];
 char ligneLink[100];
 
 int main(int argc, char**argv){
+
+	//printf("Repertoire d'installation par defaut = %s \n", repertoireInstallation);
 
 	analyseParametres(argc, argv);
 	nbSrcFiles=0;
@@ -79,7 +82,7 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"SRC=$(wildcard src/*.cpp)\n");
 	fprintf(ficMakefile,"TMP=$(patsubst %%.cpp, %%.o, $(SRC))\n");
 	fprintf(ficMakefile,"OBJ=$(patsubst src/%%.o, obj/%%.o, $(TMP))\n");
-	fprintf(ficMakefile,"EXEC = %s\n", appName);
+	fprintf(ficMakefile,"EXEC = bin/%s\n", appName);
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"ALL : $(EXEC)\n");
 	fprintf(ficMakefile,"\n");
@@ -99,4 +102,11 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"clean: \n");
 	fprintf(ficMakefile,"\t@rm -f obj/* bin/*\n");
 	fprintf(ficMakefile,"\t@echo \"Clean OK\"\n");
+	fprintf(ficMakefile,"\n");
+	fprintf(ficMakefile,"install: \n");
+	fprintf(ficMakefile,"\t@make\n");
+	fprintf(ficMakefile,"\t@rm -f %s/%s\n", repertoireInstallation, appName);
+	fprintf(ficMakefile,"\t@cp -f bin/%s %s\n", repertoireInstallation, appName);
+	fprintf(ficMakefile,"\t@chmod +x %s/%s\n", repertoireInstallation, appName);
+	fprintf(ficMakefile,"\t@echo \"installation de %s dans %s OK\"\n", appName, repertoireInstallation);
 }

@@ -43,7 +43,8 @@ obj/main.o: src/main.cpp \
 	@echo "build de l'objet $@ OK"
 
 install:
-	make
-	rm -f ~/bin/buildMakefile
-	cp -f bin/buildMakefile ~/bin
-	chmod +x ~/bin/buildMakefile
+	@make
+	@rm -f ~/bin/buildMakefile
+	@cp -f bin/buildMakefile ~/bin
+	@chmod +x ~/bin/buildMakefile
+	@echo "installation dans ~/bin OK"
