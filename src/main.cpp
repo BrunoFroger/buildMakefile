@@ -106,7 +106,7 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"install: \n");
 	fprintf(ficMakefile,"\t@make\n");
 	fprintf(ficMakefile,"\t@rm -f %s/%s\n", repertoireInstallation, appName);
-	fprintf(ficMakefile,"\t@cp -f bin/%s %s\n", repertoireInstallation, appName);
+	fprintf(ficMakefile,"\t@cp -f bin/%s %s\n", appName, repertoireInstallation);
 	fprintf(ficMakefile,"\t@chmod +x %s/%s\n", repertoireInstallation, appName);
 	fprintf(ficMakefile,"\t@echo \"installation de %s dans %s OK\"\n", appName, repertoireInstallation);
 }
