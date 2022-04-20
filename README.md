@@ -2,10 +2,27 @@
 
 buildMakefile permet de générer automatiquement vos makefiles
 
+La syntaxe de lancement de ce programme est :
 
-vous devez organiser votre projet de la facon suivante :
+	buildMakefile [options] nomProjet [options]
 
-''
-racine du projet 
+
+
+Le resultat de cette commande se trouve dans le fichier *makefile.result* ; ce nom est modifiable avec l'option -f
+
+Vous devez organiser votre projet de la façon suivante :
+* racine du projet
     - fichier Makefile
     - fichier README.md
+    - repertoire src
+    	- liste des fichiers source
+    - repertoire obj
+    	- contient les fichiers objets généré par make
+    - repertoire bin
+    	- contient l'executable buildMakefile généré par make
+    - fichier résultat *makefile.result* généré par buildMakefile
+   
+Les options disponibles à l'execution sont :
+* -c : modifie le compilateur (c++ par default)
+* -f : nom du fichier makefile généré (makefile.result par défault)
+* -h : affichage de l'aide 
