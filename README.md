@@ -31,4 +31,4 @@ Vous devez organiser votre projet de la façon suivante :
 dans le makefile généré, les options suivantes sont disponibles :
 * clean : efface les fichiers objet et l'executable
 * ALL : genere l'ensemble des fichiers
-* install : build et copie l'executable dans le repertoire ~/bin 
+* install : build et copie l'executable dans le repertoire d'installation (~/bin par default) ce répertoire doit etre dans votre path pour que l'application soit utilisable partout sur votre ordinateur.
