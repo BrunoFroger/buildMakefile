@@ -61,8 +61,8 @@ int analyseSrc(char *filename){
 						tmp = strstr(ligne, "\"");
 						tmp[0]='\0';
 					}
-					printf("	tmp = %s\n", tmp);
-					printf("fichier : %s il faut inclure : %s\n", filename, ligne);
+					//printf("	tmp = %s\n", tmp);
+					//printf("fichier : %s il faut inclure : %s\n", filename, ligne);
 					//std::cout << " i = " << i << "\n";
 					fprintf(ficMakefile," \\");
 					fprintf(ficMakefile, "\n\tinc/%s",ligne);

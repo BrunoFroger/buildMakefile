@@ -18,6 +18,7 @@
     extern char tblSrcFiles[NB_FILES_MAX][FILENAME_MAX_LENGTH];
     extern FILE *ficMakefile;
     extern char appName[FILENAME_MAX_LENGTH];
+    extern char makefile[FILENAME_MAX_LENGTH];
     extern char compilateur[10];
     extern char ligneCompilation[100];
     extern char ligneLink[100];
