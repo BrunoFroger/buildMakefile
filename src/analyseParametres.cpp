@@ -21,10 +21,10 @@ void aide(char *nomProgramme){
     printf("syntaxe : %s [options] appName [options]\n", nomProgramme);
     printf("    appName : nom de l'application qui sera généré par le makefile\n");
     printf("    options : \n");
-    printf("        -c : modifie le nom du compilateur (c++ par défault)\n");
-    printf("        -f : modifie le nom du makefile généré (makefile.result par défault)\n");
+    printf("        -c : change le nom du compilateur (c++ par défault)\n");
+    printf("        -f : change le nom du makefile généré (makefile.result par défault)\n");
     printf("        -h : cette aide\n");
-    printf("        -i : change repertoire d'installation (~/bin par défaul)\n");
+    printf("        -d : change le repertoire de déploiement (~/bin par défaul)\n");
     printf("\n");
 }
 
@@ -64,9 +64,18 @@ void analyseParametres(int argc, char **argv){
         } else {
             //printf("gestion d'une option %s\n", param);
             switch(param[1]){
+                case 'b' : // change repertoire des fichiers binaire
+                    checkNbParametres(i, argc);
+                    sprintf(binDir, "%s", argv[++i]);
+                    break;
                 case 'c' : // change nom du compilateur
                     checkNbParametres(i, argc);
                     sprintf(compilateur, "%s", argv[++i]);
+                    break;
+                case 'd' : // change repertoire d'installation
+                    checkNbParametres(i, argc);
+                    sprintf(repertoireInstallation, "%s", argv[++i]);
+                    //printf("nouveau repertoire d'installation : %s \n", repertoireInstallation);
                     break;
                 case 'f' : // change nom du fichier makefile généré
                     checkNbParametres(i, argc);
@@ -75,10 +84,17 @@ void analyseParametres(int argc, char **argv){
                 case 'h' : // aide
                     aide(argv[0]);
                     break;
-                case 'i' : // change repertoire d'installation
+                case 'i' : // change repertoire des fichiers include
                     checkNbParametres(i, argc);
-                    sprintf(repertoireInstallation, "%s", argv[++i]);
-                    //printf("nouveau repertoire d'installation : %s \n", repertoireInstallation);
+                    sprintf(incDir, "%s", argv[++i]);
+                    break;
+                case 'o' : // change repertoire des fichiers objet
+                    checkNbParametres(i, argc);
+                    sprintf(objDir, "%s", argv[++i]);
+                    break;
+                case 's' : // change repertoire des fichiers source
+                    checkNbParametres(i, argc);
+                    sprintf(srcDir, "%s", argv[++i]);
                     break;
                 default :
                     printf("option inconnue %s\n", param);

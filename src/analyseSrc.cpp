@@ -22,8 +22,8 @@ int analyseSrc(char *filename){
 
 	// recherche de include dans le fichier source
 	char ficName[FILENAME_MAX_LENGTH];
-	sprintf(ficName,"src/%s.cpp",filename);
-	//std::cout << "traitement du fichier [" << ficName << "\n";
+	sprintf(ficName,"%s/%s.cpp", srcDir, filename);
+	printf("traitement du fichier [%s]\n", ficName);
 	srcFile = fopen(ficName,"r");
 	if (srcFile == NULL){
 		printf("ERROR : unable to open %s\n", ficName);
@@ -31,7 +31,7 @@ int analyseSrc(char *filename){
 	}
 
 	//std::cout << "creation de l'entree correspondant au fichier " << ficName << "\n";
-	fprintf(ficMakefile,"obj/%s.o: src/%s.cpp",filename,filename);
+	fprintf(ficMakefile,"$(OBJDIR)/%s.o: $(SRCDIR)/%s.cpp", filename, filename);
 
 	strcpy(ligne, "");
 	int i = 0;
@@ -65,7 +65,7 @@ int analyseSrc(char *filename){
 					//printf("fichier : %s il faut inclure : %s\n", filename, ligne);
 					//std::cout << " i = " << i << "\n";
 					fprintf(ficMakefile," \\");
-					fprintf(ficMakefile, "\n\tinc/%s",ligne);
+					fprintf(ficMakefile, "\n\t$(INCDIR)/%s",ligne);
 				}
 			}
 		}

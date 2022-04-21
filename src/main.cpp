@@ -28,6 +28,10 @@ char ligne[LINE_MAX_LENGTH];
 char compilateur[10]="c++";
 char ligneCompilation[100];
 char ligneLink[100];
+char srcDir[100];
+char incDir[100];
+char objDir[100];
+char binDir[100];
 
 int main(int argc, char**argv){
 
@@ -41,6 +45,10 @@ int main(int argc, char**argv){
 	timeinfo = localtime (&rawtime);
 	strftime (bufferDate,100,"le %d/%m/%Y à %T",timeinfo);
 
+	strcpy(srcDir, "src");
+	strcpy(incDir, "inc");
+	strcpy(objDir, "obj");
+	strcpy(binDir, "bin");
 
 	analyseParametres(argc, argv);
 	nbSrcFiles=0;
@@ -99,10 +107,16 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"CC=%s\n", compilateur);
 	fprintf(ficMakefile,"CCFLAGS=-Wall -c -o $@\n");
 	fprintf(ficMakefile,"\n");
-	fprintf(ficMakefile,"SRC=$(wildcard src/*.cpp)\n");
+	fprintf(ficMakefile,"SRCDIR=%s\n", srcDir);
+	fprintf(ficMakefile,"INCDIR=%s\n", incDir);
+	fprintf(ficMakefile,"OBJDIR=%s\n", objDir);
+	fprintf(ficMakefile,"BINDIR=%s\n", binDir);
+	fprintf(ficMakefile,"INSTALLDIR=%s\n", repertoireInstallation);
+	fprintf(ficMakefile,"\n");
+	fprintf(ficMakefile,"SRC=$(wildcard $(SRCDIR)/*.cpp)\n");
 	fprintf(ficMakefile,"TMP=$(patsubst %%.cpp, %%.o, $(SRC))\n");
-	fprintf(ficMakefile,"OBJ=$(patsubst src/%%.o, obj/%%.o, $(TMP))\n");
-	fprintf(ficMakefile,"EXEC = bin/%s\n", appName);
+	fprintf(ficMakefile,"OBJ=$(patsubst $(SRCDIR)/%%.o, $(OBJDIR)/%%.o, $(TMP))\n");
+	fprintf(ficMakefile,"EXEC = $(BINDIR)/%s\n", appName);
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"# Définition des règles génériques\n");
@@ -129,13 +143,13 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"# Définition des règles utilitaires\n");
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"clean: \n");
-	fprintf(ficMakefile,"\t@rm -f obj/* bin/*\n");
+	fprintf(ficMakefile,"\t@rm -f $(OBJDIR)/* $(BINDIR)/*\n");
 	fprintf(ficMakefile,"\t@echo \"Clean OK\"\n");
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"install: \n");
 	fprintf(ficMakefile,"\t@make\n");
-	fprintf(ficMakefile,"\t@rm -f %s/%s\n", repertoireInstallation, appName);
-	fprintf(ficMakefile,"\t@cp -f bin/%s %s\n", appName, repertoireInstallation);
-	fprintf(ficMakefile,"\t@chmod +x %s/%s\n", repertoireInstallation, appName);
+	fprintf(ficMakefile,"\t@rm -f $(INSTALLDIR)/%s\n", appName);
+	fprintf(ficMakefile,"\t@cp -f $(BINDIR)/%s %s\n", appName, repertoireInstallation);
+	fprintf(ficMakefile,"\t@chmod +x $(INSTALLDIR)/%s\n", appName);
 	fprintf(ficMakefile,"\t@echo \"installation de %s dans %s OK\"\n", appName, repertoireInstallation);
 }

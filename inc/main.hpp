@@ -23,5 +23,9 @@
     extern char compilateur[10];
     extern char ligneCompilation[100];
     extern char ligneLink[100];
+    extern char srcDir[100];
+    extern char incDir[100];
+    extern char objDir[100];
+    extern char binDir[100];
 
 #endif
