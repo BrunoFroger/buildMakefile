@@ -11,19 +11,25 @@ La syntaxe de lancement de ce programme est :
 	* -c : modifie le compilateur (c++ par default)
   	* -f : nom du fichier makefile généré (makefile.result par défault)
   	* -h : affichage de l'aide 
-  	* -i : change repertoire d'installation
+  	* -d : change le repertoire de deloiement
+    * -s : change le repertoire dans lequel se situe les fichiers source
+    * -i : change le repertoire dans lequel se situe les fichiers include
+    * -o : change le repertoire dans lequel sont générés les fichiers objet
+    * -b : change le repertoire dans lequel est généré le fichier executable
 
-Le resultat de cette commande se trouve dans le fichier *makefile.result* ; ce nom est modifiable avec l'option -f
+Le resultat de cette commande se trouve dans le fichier *makefile.result* (ce nom est modifiable avec l'option -f)
 
 Vous devez organiser votre projet de la façon suivante :
 * racine du projet
     - fichier Makefile
     - fichier README.md
-    - repertoire src
-    	- liste des fichiers source
-    - repertoire obj
+    - repertoire src (modifiable avec l'option -s)
+    	- repertoire contenant les fichiers source que vous avez créés
+    - repertoire inc (modifiable avec l'option -s)
+    	- repertoire contenant les fichiers include que vous avez créés
+    - repertoire obj (modifiable avec l'option -o)
     	- contient les fichiers objets généré par make
-    - repertoire bin
+    - repertoire bin (modifiable avec l'option -b)
     	- contient l'executable *buildMakefile* généré par make
     - fichier résultat *makefile.result* généré par buildMakefile
    
