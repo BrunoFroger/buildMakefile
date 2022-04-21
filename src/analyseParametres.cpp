@@ -25,6 +25,10 @@ void aide(char *nomProgramme){
     printf("        -f : change le nom du makefile généré (makefile.result par défault)\n");
     printf("        -h : cette aide\n");
     printf("        -d : change le repertoire de déploiement (~/bin par défaul)\n");
+    printf("        -s : change le repertoire ou vous avez stocké vos fichiers source (src par défaul)\n");
+    printf("        -i : change le repertoire ou vous avez stocké vos fichiers include (inc par défaul)\n");
+    printf("        -o : change le repertoire ou sont générés les fichiers objet (obj par défaul)\n");
+    printf("        -o : change le repertoire ou est généré le fichier executable (bin par défaul)\n");
     printf("\n");
 }
 
