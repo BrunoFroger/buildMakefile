@@ -13,6 +13,7 @@
 
 #include "../inc/main.hpp"
 #include "../inc/analyseParametres.hpp"
+#include "../inc/fichierConfig.hpp"
 
 extern int analyseSrc(char *filename);
 
@@ -22,6 +23,7 @@ char appName[FILENAME_MAX_LENGTH];
 FILE *srcFile;
 FILE *ficMakefile;
 char makefile[FILENAME_MAX_LENGTH]="makefile.result";
+char configFilename[FILENAME_MAX_LENGTH];
 char repertoireInstallation[FILENAME_MAX_LENGTH]="~/bin";
 int nbSrcFiles=0;
 char ligne[LINE_MAX_LENGTH];
@@ -49,6 +51,16 @@ int main(int argc, char**argv){
 	strcpy(incDir, "inc");
 	strcpy(objDir, "obj");
 	strcpy(binDir, "bin");
+	char *tmp = strrchr(argv[0], '/');
+	if (tmp == NULL){
+		tmp = &argv[0][0];
+	} else {
+		tmp+=1;
+	}
+
+	sprintf(configFilename,"%s.cfg", tmp);
+
+	litFichierConfig(configFilename);
 
 	analyseParametres(argc, argv);
 	nbSrcFiles=0;
@@ -92,6 +104,10 @@ int main(int argc, char**argv){
 	// ecriture de l'entete du fichier makefile
 	//std::cout << "creation entete du makefile \n";
 	ficMakefile = fopen(makefile,"w");
+	if (ficMakefile == NULL){
+		printf("fichier makefile (%s) n'existe pas\n", makefile);
+		exit(-1);
+	}
 	fprintf(ficMakefile,"#############################################################\n");
 	fprintf(ficMakefile,"#                   M a k e f i l e \n");
 	fprintf(ficMakefile,"# \n");
