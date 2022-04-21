@@ -44,6 +44,7 @@ dans le makefile généré, les options suivantes sont disponibles :
 
 ## fichier de configuration
 Le fichier de configuration optionnel doit repondre aux contraintes suivantes :
+* il doit etre dans le repertoire racine de votre projet au même niveau que le makefile.
 * le nom du fichier de configuration doit obliagoirement etre le même nom que l'executable buildMakefile avec l'extention '.cfg'
 * une seule affectation par ligne
 * lignes vides possibles

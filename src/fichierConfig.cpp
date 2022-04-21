@@ -55,7 +55,8 @@ void litFichierConfig(char *fichier){
     if (ficConfig == NULL){
         printf("******************************************************\n");
         printf("*  Fichier de configuration %s non trouvé\n", fichier);
-        printf("*  On utilise les parametres par defaut\n");
+        printf("   Il doit etre dans le repertoire courant\n");
+        printf("*  => On utilise les parametres par defaut\n");
         printf("******************************************************\n");
         return;
     }
