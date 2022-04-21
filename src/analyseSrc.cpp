@@ -31,7 +31,7 @@ int analyseSrc(char *filename){
 	}
 
 	//std::cout << "creation de l'entree correspondant au fichier " << ficName << "\n";
-	fprintf(ficMakefile,"\nobj/%s.o: src/%s.cpp",filename,filename);
+	fprintf(ficMakefile,"obj/%s.o: src/%s.cpp",filename,filename);
 
 	strcpy(ligne, "");
 	int i = 0;
@@ -72,7 +72,8 @@ int analyseSrc(char *filename){
 	}
 
 	fprintf(ficMakefile,"\n\t%s\n", ligneCompilation);
-	fprintf(ficMakefile,"\t@echo \"build $@ OK\"\n");
+	fprintf(ficMakefile,"\t@echo \"Compilation de $< OK\"\n");
+	fprintf(ficMakefile,"\n");
 	fflush(ficMakefile);
 	return 0;
 }

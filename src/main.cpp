@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
+#include <time.h>
 
 #include "../inc/main.hpp"
 #include "../inc/analyseParametres.hpp"
@@ -31,6 +32,15 @@ char ligneLink[100];
 int main(int argc, char**argv){
 
 	//printf("Repertoire d'installation par defaut = %s \n", repertoireInstallation);
+
+	// recuperation de la date de génération
+	time_t rawtime;
+	struct tm * timeinfo;
+	char bufferDate [100];
+	time (&rawtime);
+	timeinfo = localtime (&rawtime);
+	strftime (bufferDate,100,"le %d/%m/%Y à %T",timeinfo);
+
 
 	analyseParametres(argc, argv);
 	nbSrcFiles=0;
@@ -74,8 +84,18 @@ int main(int argc, char**argv){
 	// ecriture de l'entete du fichier makefile
 	//std::cout << "creation entete du makefile \n";
 	ficMakefile = fopen(makefile,"w");
-	fprintf(ficMakefile,"# Makefile genere automatiquement avec le generateur de makefile\n");
+	fprintf(ficMakefile,"#############################################################\n");
+	fprintf(ficMakefile,"#                   M a k e f i l e \n");
+	fprintf(ficMakefile,"# \n");
+	fprintf(ficMakefile,"#         généré automatiquement avec %s\n", argv[0]);
+	fprintf(ficMakefile,"#              %s\n", bufferDate);
+	fprintf(ficMakefile,"#              (c) B. Froger 2022\n");
+	fprintf(ficMakefile,"# \n");
+	fprintf(ficMakefile,"#############################################################\n");
 	fprintf(ficMakefile,"\n");
+	fprintf(ficMakefile,"#------------------------------------------------------------\n");
+	fprintf(ficMakefile,"# Définition des variables\n");
+	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"CC=%s\n", compilateur);
 	fprintf(ficMakefile,"CCFLAGS=-Wall -c -o $@\n");
 	fprintf(ficMakefile,"\n");
@@ -84,21 +104,30 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"OBJ=$(patsubst src/%%.o, obj/%%.o, $(TMP))\n");
 	fprintf(ficMakefile,"EXEC = bin/%s\n", appName);
 	fprintf(ficMakefile,"\n");
+	fprintf(ficMakefile,"#------------------------------------------------------------\n");
+	fprintf(ficMakefile,"# Définition des règles génériques\n");
+	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"ALL : $(EXEC)\n");
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"$(EXEC): $(OBJ)\n");
 	fprintf(ficMakefile,"\t%s\n", ligneLink);
-	fprintf(ficMakefile,"\t@echo \"build executable OK\"\n");
+	fprintf(ficMakefile,"\t@echo \"Edition de lien de $@ OK\"\n");
+	fprintf(ficMakefile,"\n");
 	///std::cout << "nombre de fichiers trouves " << nbSrcFiles << "\n";
 	int i=0;
 	// analyse des fichiers sources
 	strcpy(filename, tblSrcFiles[i++]);
+	fprintf(ficMakefile,"#------------------------------------------------------------\n");
+	fprintf(ficMakefile,"# Définition des règles pour chaque fichier source\n");
+	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	while (i <= nbSrcFiles){
 		// on traite ce fichier
 		analyseSrc(filename);
 		strcpy(filename, tblSrcFiles[i++]);
 	}
-	fprintf(ficMakefile,"\n");
+	fprintf(ficMakefile,"#------------------------------------------------------------\n");
+	fprintf(ficMakefile,"# Définition des règles utilitaires\n");
+	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"clean: \n");
 	fprintf(ficMakefile,"\t@rm -f obj/* bin/*\n");
 	fprintf(ficMakefile,"\t@echo \"Clean OK\"\n");
