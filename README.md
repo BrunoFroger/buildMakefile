@@ -21,7 +21,7 @@ La syntaxe de lancement de ce programme est :
 Le résultat de cette commande se trouve dans le fichier *makefile.result* (ce nom est modifiable avec l'option -f)
 
 ## Ordre de prise en compte des paramètres (du moins prioritaire au plus prioritaire)
-* Valeurs par default
+* Valeurs par défault
 * Fichier de configuration
 * Paramètres en ligne de commande
 
