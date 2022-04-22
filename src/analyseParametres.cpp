@@ -19,16 +19,17 @@
 //-----------------------------------
 void aide(char *nomProgramme){
     printf("syntaxe : %s [options] appName [options]\n", nomProgramme);
-    printf("    appName : nom de l'application qui sera généré par le makefile\n");
+    printf("    appName : nom de l'application qui sera générée par le makefile\n");
     printf("    options : \n");
+    printf("        -h : cette aide\n");
     printf("        -c : change le nom du compilateur (c++ par défault)\n");
     printf("        -f : change le nom du makefile généré (makefile.result par défault)\n");
-    printf("        -h : cette aide\n");
     printf("        -d : change le repertoire de déploiement (~/bin par défaul)\n");
     printf("        -s : change le repertoire ou vous avez stocké vos fichiers source (src par défaul)\n");
     printf("        -i : change le repertoire ou vous avez stocké vos fichiers include (inc par défaul)\n");
     printf("        -o : change le repertoire ou sont générés les fichiers objet (obj par défaul)\n");
-    printf("        -o : change le repertoire ou est généré le fichier executable (bin par défaul)\n");
+    printf("        -b : change le repertoire ou est généré le fichier executable (bin par défaul)\n");
+    printf("Pour une aide plus complète consulter la doc sur GitHub : https://github.com/BrunoFroger/buildMakefile/blob/main/README.md\n");
     printf("\n");
 }
 
