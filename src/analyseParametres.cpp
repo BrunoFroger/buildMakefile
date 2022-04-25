@@ -29,6 +29,14 @@ void aide(char *nomProgramme){
     printf("        -i : change le repertoire ou vous avez stocké vos fichiers include (inc par défaul)\n");
     printf("        -o : change le repertoire ou sont générés les fichiers objet (obj par défaul)\n");
     printf("        -b : change le repertoire ou est généré le fichier executable (bin par défaul)\n");
+    printf(" Architecture des répertoires de votre projet pour une utilisation standard :\n");
+    printf("        Racine du projet :\n");
+    printf("            makefile\n");
+    printf("            src : repertoire contenant vos fichiers source (.cpp)\n");
+    printf("            inc : repertoire contenant vos fichiers include (.hpp)\n");
+    printf("            obj : repertoire contenant les fichiers objet générés (.o)\n");
+    printf("            bin : repertoire contenant l'exécutable généré\n");
+    printf("\n");
     printf("Pour une aide plus complète consulter la doc sur GitHub : https://github.com/BrunoFroger/buildMakefile/blob/main/README.md\n");
     printf("\n");
 }
