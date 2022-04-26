@@ -2,7 +2,7 @@
 #                   M a k e f i l e 
 # 
 #         généré automatiquement avec buildMakefile
-#              le 26/04/2022 à 14:06:37
+#              le 26/04/2022 à 15:41:48
 #              (c) B. Froger 2022
 # 
 #############################################################
@@ -11,7 +11,7 @@
 # Définition des variables
 #------------------------------------------------------------
 CC=gcc
-CCFLAGS=-Wall
+CCFLAGS=-Wall -Werror
 LDFLAGS=
 
 SRCDIR=src
