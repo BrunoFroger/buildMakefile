@@ -31,7 +31,7 @@ Vous devez organiser votre projet de la façon suivante :
     - fichier Makefile
     - fichier README.md
     - répertoire src (modifiable avec l'option -s)
-        - répertoire contenant les fichiers source que vous avez créés
+        - répertoire contenant les fichiers source que vous avez créés (externtion .cpp obligatoire)
     - répertoire inc (modifiable avec l'option -i)
         - répertoire contenant les fichiers include que vous avez créés
     - répertoire obj (modifiable avec l'option -o)
