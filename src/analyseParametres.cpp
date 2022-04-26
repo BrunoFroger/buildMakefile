@@ -33,7 +33,7 @@ void aide(char *nomProgramme){
     printf("        Racine du projet :\n");
     printf("            makefile\n");
     printf("            src : repertoire contenant vos fichiers source (.cpp)\n");
-    printf("            inc : repertoire contenant vos fichiers include (.hpp)\n");
+    printf("            inc : repertoire contenant vos fichiers include (.h*)\n");
     printf("            obj : repertoire contenant les fichiers objet générés (.o)\n");
     printf("            bin : repertoire contenant l'exécutable généré\n");
     printf("\n");
