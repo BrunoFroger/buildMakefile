@@ -11,8 +11,8 @@ La syntaxe de lancement de ce programme est :
 * Les options disponibles à l'exécution sont :
     * -c : modifie le compilateur (c++ par default)
     * -f : nom du fichier makefile généré (makefile.result par défaut)
-    * -e : change la variable CCFLAGS (-Wall par défault)\n");
-    * -l : change la variable LDFLAGS (\"\" par défault)\n");
+    * -e : change la variable CCFLAGS (-Wall par défault) ne pas ajouter le '-' dans la commande\n");
+    * -l : change la variable LDFLAGS (\"\" par défault) ne pas ajouter le '-' dans la commande\n");
     * -h : affichage de l'aide 
     * -d : change le répertoire de déploiement
     * -s : change le répertoire dans lequel se situe les fichiers source
@@ -21,6 +21,7 @@ La syntaxe de lancement de ce programme est :
     * -b : change le répertoire dans lequel est généré le fichier exécutable
     * -v : active le mode verbose : affichage d'information de progression  
 
+Les options -e et -l peuvent appraitre plusieurs fois le resultat se concatené
 Le résultat de cette commande se trouve dans le fichier *makefile.result* (ce nom est modifiable avec l'option -f)
 
 ## Ordre de prise en compte des paramètres (du moins prioritaire au plus prioritaire)
@@ -68,6 +69,8 @@ Le fichier de configuration optionnel doit répondre aux contraintes suivantes :
     - MAKEFILENAME (makefile.result par default) : nom du fichier makefile généré
     - APPNAME (pas de valeur par default) : nom de binaire applicatif généré
     - COMPILATEUR (C++ par default) : nom du compilateur a utiliser
+    - CCFLAGS (-Wall par default) : modifie les flags de compilation
+    - LDFLAGS ("" par default) : modifie les flags de l'édition de liens
 * les variables non définies dans ce fichier prennent leur valeur par défaut
 
 

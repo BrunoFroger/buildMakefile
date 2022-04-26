@@ -23,8 +23,8 @@ void aide(char *nomProgramme){
     printf("    options : \n");
     printf("        -h : cette aide\n");
     printf("        -c : change le nom du compilateur (c++ par défault)\n");
-    printf("        -e : change la variable CCFLAGS (-Wall par défault)\n");
-    printf("        -l : change la variable LDFLAGS (\"\" par défault)\n");
+    printf("        -e : change la variable CCFLAGS (-Wall par défault) ne pas ajouter le '-' dans la commande\n");
+    printf("        -l : change la variable LDFLAGS (\"\" par défault) ne pas ajouter le '-' dans la commande\n");
     printf("        -f : change le nom du makefile généré (makefile.result par défault)\n");
     printf("        -d : change le repertoire de déploiement (~/bin par défaul)\n");
     printf("        -s : change le repertoire ou vous avez stocké vos fichiers source (src par défaul)\n");
@@ -65,6 +65,7 @@ void analyseParametres(int argc, char **argv){
     //printf("Analyse des parametres => debut\n");
     int i = 1;
     char param[50];
+    char tmp[50];
     /*
     if (argc < 2) {
 		printf("ERROR : manque parametre\n");
@@ -97,7 +98,8 @@ void analyseParametres(int argc, char **argv){
                         break;
                     case 'e' : // change ccFlags
                         checkNbParametres(i, argc);
-                        sprintf(ccFlags, "%s", argv[++i]);
+                        strcpy(tmp, ccFlags);
+                        sprintf(ccFlags, "%s -%s", tmp, argv[++i]);
                         break;
                     case 'f' : // change nom du fichier makefile généré
                         checkNbParametres(i, argc);
@@ -112,7 +114,8 @@ void analyseParametres(int argc, char **argv){
                         break;
                     case 'l' : // change ldFlags
                         checkNbParametres(i, argc);
-                        sprintf(ldFlags, "%s", argv[++i]);
+                        strcpy(tmp, ldFlags);
+                        sprintf(ldFlags, "%s -%s", tmp, argv[++i]);
                         break;
                     case 'o' : // change repertoire des fichiers objet
                         checkNbParametres(i, argc);
