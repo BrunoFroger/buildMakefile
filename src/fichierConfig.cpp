@@ -56,7 +56,6 @@ void litFichierConfig(char *fichier){
     char *tmp;
     char varName[100];
     char varValue[100];
-    int i=0;
 
     ficConfig = fopen(fichier, "r");
     if (ficConfig == NULL){
