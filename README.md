@@ -19,7 +19,7 @@ La syntaxe de lancement de ce programme est :
     * -i : change le répertoire dans lequel se situe les fichiers include
     * -o : change le répertoire dans lequel sont générés les fichiers objet
     * -b : change le répertoire dans lequel est généré le fichier exécutable
-    * -v : active le mode verbose : affichage d'informations de progression  
+    * -v : active le mode verbose : affichage d'information de progression  
 
 Le résultat de cette commande se trouve dans le fichier *makefile.result* (ce nom est modifiable avec l'option -f)
 
