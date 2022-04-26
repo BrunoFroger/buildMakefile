@@ -19,7 +19,7 @@ extern int analyseSrc(char *filename);
 
 char tblSrcFiles[NB_FILES_MAX][FILENAME_MAX_LENGTH];
 char filename[FILENAME_MAX_LENGTH];
-char appName[FILENAME_MAX_LENGTH];
+char appName[FILENAME_MAX_LENGTH]="";
 FILE *srcFile;
 FILE *ficMakefile;
 char makefile[FILENAME_MAX_LENGTH]="makefile.result";
@@ -168,4 +168,6 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"\t@cp -f $(BINDIR)/%s %s\n", appName, repertoireInstallation);
 	fprintf(ficMakefile,"\t@chmod +x $(INSTALLDIR)/%s\n", appName);
 	fprintf(ficMakefile,"\t@echo \"installation de %s dans %s OK\"\n", appName, repertoireInstallation);
+
+	printf("fichier %s généré avec succès \n", makefile);
 }

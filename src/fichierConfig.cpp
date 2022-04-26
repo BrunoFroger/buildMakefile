@@ -32,11 +32,13 @@ void setVariable(char *varName, char *varValue){
         strcpy(makefile, varValue);
     } else if (strcmp(varName, "COMPILATEUR") == 0){
         strcpy(compilateur, varValue);
+    } else if (strcmp(varName, "APPNAME") == 0){
+        strcpy(appName, varValue);
     } else {
         printf("nom de variable inconnu : %s \n", varName);
         exit(-1);
     }
-    printf("fichier de configuration => %s = %s\n", varName, varValue);
+    printf("définition de %s = %s\n", varName, varValue);
 }
 
 //-----------------------------------

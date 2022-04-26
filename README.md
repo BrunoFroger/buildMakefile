@@ -57,13 +57,14 @@ Le fichier de configuration optionnel doit répondre aux contraintes suivantes :
     * le texte après '=' correspond à la valeur que l'on souhaite affecter à cette variable
 * il est possible de mettre des espaces avant et après les noms de variables et des valeurs
 * les variables disponibles sont :
-    - SRCDIR (src par default)
-    - INCDIR (inc par default)
-    - OBJDIR (obj par default)
-    - BINDIR (bin par default)
-    - INSTALLDIR (~/bin par default)
-    - MAKEFILENAME (makefile.result par default)
-    - COMPILATEUR (C++ par default)
+    - SRCDIR (src par default) : nom du repertoire des fichiers source que vous écrivez
+    - INCDIR (inc par default) : nom du repertoire des fichiers include que vous écrivez
+    - OBJDIR (obj par default) : nom du repertoire des fichiers objets générés
+    - BINDIR (bin par default) : nom du repertoire du fichier executable généré
+    - INSTALLDIR (~/bin par default) : nom du repertoire d'installation du fichier executable (make install)
+    - MAKEFILENAME (makefile.result par default) : nom du fichier makefile généré
+    - APPNAME (pas de valeur par default) : nom de binaire applicatif généré
+    - COMPILATEUR (C++ par default) : nom du compilateur a utiliser
 * les variables non définies dans ce fichier prennent leur valeur par défaut
 
 

@@ -1,8 +1,8 @@
 #############################################################
 #                   M a k e f i l e 
 # 
-#         généré automatiquement avec bin/buildMakefile
-#              le 21/04/2022 à 15:09:14
+#         généré automatiquement avec buildMakefile
+#              le 26/04/2022 à 11:01:12
 #              (c) B. Froger 2022
 # 
 #############################################################
