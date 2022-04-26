@@ -34,6 +34,9 @@ char srcDir[100];
 char incDir[100];
 char objDir[100];
 char binDir[100];
+char ccFlags[100];
+char ldFlags[100];
+bool modeVerbose=false;
 
 int main(int argc, char**argv){
 
@@ -51,6 +54,8 @@ int main(int argc, char**argv){
 	strcpy(incDir, "inc");
 	strcpy(objDir, "obj");
 	strcpy(binDir, "bin");
+	strcpy(ccFlags, "-Wall");
+	strcpy(ldFlags, "");
 	char *tmp = strrchr(argv[0], '/');
 	if (tmp == NULL){
 		tmp = &argv[0][0];
@@ -59,6 +64,11 @@ int main(int argc, char**argv){
 	}
 
 	sprintf(configFilename,"%s.cfg", tmp);
+
+	// detection du mode verbose
+	for (int i = 0 ; i < argc ; i++){
+		if (strcmp(argv[i], "-v") == 0) modeVerbose=true;
+	}
 
 	litFichierConfig(configFilename);
 
@@ -99,8 +109,8 @@ int main(int argc, char**argv){
 		printf("ERROR : aucun fichier source trouves dans src/...\n");
 		return -1;
 	}
-	sprintf(ligneCompilation, "@$(CC) $< -c -o $@");
-	sprintf(ligneLink, "@$(CC) $(OBJ) -o $@");
+	sprintf(ligneCompilation, "@$(CC) $(CCFLAGS) $< -c -o $@");
+	sprintf(ligneLink, "@$(CC) $(LDFLAGS) $(OBJ) -o $@");
 	// ecriture de l'entete du fichier makefile
 	//std::cout << "creation entete du makefile \n";
 	ficMakefile = fopen(makefile,"w");
@@ -121,7 +131,8 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"# Définition des variables\n");
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"CC=%s\n", compilateur);
-	fprintf(ficMakefile,"CCFLAGS=-Wall -c -o $@\n");
+	fprintf(ficMakefile,"CCFLAGS=%s\n", ccFlags);
+	fprintf(ficMakefile,"LDFLAGS=%s\n", ldFlags);
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"SRCDIR=%s\n", srcDir);
 	fprintf(ficMakefile,"INCDIR=%s\n", incDir);

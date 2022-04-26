@@ -27,5 +27,8 @@
     extern char incDir[100];
     extern char objDir[100];
     extern char binDir[100];
+    extern char ccFlags[100];
+    extern char ldFlags[100];
+    extern bool modeVerbose;
 
 #endif

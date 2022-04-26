@@ -2,7 +2,7 @@
 #                   M a k e f i l e 
 # 
 #         généré automatiquement avec buildMakefile
-#              le 26/04/2022 à 11:01:12
+#              le 26/04/2022 à 13:50:41
 #              (c) B. Froger 2022
 # 
 #############################################################
@@ -11,7 +11,8 @@
 # Définition des variables
 #------------------------------------------------------------
 CC=gcc
-CCFLAGS=-Wall -c -o $@
+CCFLAGS=-Wall
+LDFLAGS=
 
 SRCDIR=src
 INCDIR=inc
@@ -30,7 +31,7 @@ EXEC = $(BINDIR)/buildMakefile
 ALL : $(EXEC)
 
 $(EXEC): $(OBJ)
-	@$(CC) $(OBJ) -o $@
+	@$(CC) $(LDFLAGS) $(OBJ) -o $@
 	@echo "Edition de lien de $@ OK"
 
 #------------------------------------------------------------
@@ -38,25 +39,25 @@ $(EXEC): $(OBJ)
 #------------------------------------------------------------
 $(OBJDIR)/analyseParametres.o: $(SRCDIR)/analyseParametres.cpp \
 	$(INCDIR)/main.hpp
-	@$(CC) $< -c -o $@
+	@$(CC) $(CCFLAGS) $< -c -o $@
 	@echo "Compilation de $< OK"
 
 $(OBJDIR)/analyseSrc.o: $(SRCDIR)/analyseSrc.cpp \
 	$(INCDIR)/analyseSrc.hpp \
 	$(INCDIR)/main.hpp
-	@$(CC) $< -c -o $@
+	@$(CC) $(CCFLAGS) $< -c -o $@
 	@echo "Compilation de $< OK"
 
 $(OBJDIR)/fichierConfig.o: $(SRCDIR)/fichierConfig.cpp \
 	$(INCDIR)/main.hpp
-	@$(CC) $< -c -o $@
+	@$(CC) $(CCFLAGS) $< -c -o $@
 	@echo "Compilation de $< OK"
 
 $(OBJDIR)/main.o: $(SRCDIR)/main.cpp \
 	$(INCDIR)/main.hpp \
 	$(INCDIR)/analyseParametres.hpp \
 	$(INCDIR)/fichierConfig.hpp
-	@$(CC) $< -c -o $@
+	@$(CC) $(CCFLAGS) $< -c -o $@
 	@echo "Compilation de $< OK"
 
 #------------------------------------------------------------

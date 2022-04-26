@@ -34,11 +34,15 @@ void setVariable(char *varName, char *varValue){
         strcpy(compilateur, varValue);
     } else if (strcmp(varName, "APPNAME") == 0){
         strcpy(appName, varValue);
+    } else if (strcmp(varName, "CCFLAGS") == 0){
+        strcpy(ccFlags, varValue);
+    } else if (strcmp(varName, "LDFLAGS") == 0){
+        strcpy(ldFlags, varValue);
     } else {
         printf("nom de variable inconnu : %s \n", varName);
         exit(-1);
     }
-    printf("définition de %s = %s\n", varName, varValue);
+    if (modeVerbose) printf("définition de %s = %s\n", varName, varValue);
 }
 
 //-----------------------------------
@@ -49,7 +53,7 @@ void setVariable(char *varName, char *varValue){
 void litFichierConfig(char *fichier){
     FILE *ficConfig;
     char ligne[100];
-    char *tmp, *tmp1;
+    char *tmp;
     char varName[100];
     char varValue[100];
 
@@ -62,7 +66,7 @@ void litFichierConfig(char *fichier){
         printf("******************************************************\n");
         return;
     }
-    printf("Analyse du fichier de configuration %s\n", fichier);
+    if (modeVerbose) printf("Analyse du fichier de configuration %s\n", fichier);
     while (!feof(ficConfig)){
         fgets(ligne, 100, ficConfig);
         if (ligne[strlen(ligne) - 1] == '\n') ligne [strlen(ligne) - 1] = '\0';

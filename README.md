@@ -11,12 +11,15 @@ La syntaxe de lancement de ce programme est :
 * Les options disponibles à l'exécution sont :
     * -c : modifie le compilateur (c++ par default)
     * -f : nom du fichier makefile généré (makefile.result par défaut)
+    * -e : change la variable CCFLAGS (-Wall par défault)\n");
+    * -l : change la variable LDFLAGS (\"\" par défault)\n");
     * -h : affichage de l'aide 
     * -d : change le répertoire de déploiement
     * -s : change le répertoire dans lequel se situe les fichiers source
     * -i : change le répertoire dans lequel se situe les fichiers include
     * -o : change le répertoire dans lequel sont générés les fichiers objet
     * -b : change le répertoire dans lequel est généré le fichier exécutable
+    * -v : active le mode verbose : affichage d'informations de progression  
 
 Le résultat de cette commande se trouve dans le fichier *makefile.result* (ce nom est modifiable avec l'option -f)
 

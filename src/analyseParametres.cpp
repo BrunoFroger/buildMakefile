@@ -23,12 +23,15 @@ void aide(char *nomProgramme){
     printf("    options : \n");
     printf("        -h : cette aide\n");
     printf("        -c : change le nom du compilateur (c++ par défault)\n");
+    printf("        -e : change la variable CCFLAGS (-Wall par défault)\n");
+    printf("        -l : change la variable LDFLAGS (\"\" par défault)\n");
     printf("        -f : change le nom du makefile généré (makefile.result par défault)\n");
     printf("        -d : change le repertoire de déploiement (~/bin par défaul)\n");
     printf("        -s : change le repertoire ou vous avez stocké vos fichiers source (src par défaul)\n");
     printf("        -i : change le repertoire ou vous avez stocké vos fichiers include (inc par défaul)\n");
     printf("        -o : change le repertoire ou sont générés les fichiers objet (obj par défaul)\n");
     printf("        -b : change le repertoire ou est généré le fichier executable (bin par défaul)\n");
+    printf("        -v : mode verbose\n");
     printf(" Architecture des répertoires de votre projet pour une utilisation standard :\n");
     printf("        Racine du projet :\n");
     printf("            makefile\n");
@@ -71,7 +74,7 @@ void analyseParametres(int argc, char **argv){
     if (argc >= 2){
         // il y a des parametres a analyser
         do {
-            printf("traitement du parametre numero %d\n", i);
+            if (modeVerbose) printf("traitement du parametre numero %d\n", i);
             strcpy(param, argv[i]);
             //printf("analyse de %s\n", param);
             if (param[0] != '-'){
@@ -92,6 +95,10 @@ void analyseParametres(int argc, char **argv){
                         sprintf(repertoireInstallation, "%s", argv[++i]);
                         //printf("nouveau repertoire d'installation : %s \n", repertoireInstallation);
                         break;
+                    case 'e' : // change ccFlags
+                        checkNbParametres(i, argc);
+                        sprintf(ccFlags, "%s", argv[++i]);
+                        break;
                     case 'f' : // change nom du fichier makefile généré
                         checkNbParametres(i, argc);
                         sprintf(makefile, "%s", argv[++i]);
@@ -103,6 +110,10 @@ void analyseParametres(int argc, char **argv){
                         checkNbParametres(i, argc);
                         sprintf(incDir, "%s", argv[++i]);
                         break;
+                    case 'l' : // change ldFlags
+                        checkNbParametres(i, argc);
+                        sprintf(ldFlags, "%s", argv[++i]);
+                        break;
                     case 'o' : // change repertoire des fichiers objet
                         checkNbParametres(i, argc);
                         sprintf(objDir, "%s", argv[++i]);
@@ -110,6 +121,9 @@ void analyseParametres(int argc, char **argv){
                     case 's' : // change repertoire des fichiers source
                         checkNbParametres(i, argc);
                         sprintf(srcDir, "%s", argv[++i]);
+                        break;
+                    case 'v' : // active mode verbose
+                        modeVerbose=true;
                         break;
                     default :
                         printf("option inconnue %s\n", param);

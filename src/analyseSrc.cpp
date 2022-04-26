@@ -23,7 +23,7 @@ int analyseSrc(char *filename){
 	// recherche de include dans le fichier source
 	char ficName[FILENAME_MAX_LENGTH];
 	sprintf(ficName,"%s/%s.cpp", srcDir, filename);
-	printf("traitement du fichier [%s]\n", ficName);
+	if (modeVerbose) printf("traitement du fichier [%s]\n", ficName);
 	srcFile = fopen(ficName,"r");
 	if (srcFile == NULL){
 		printf("ERROR : unable to open %s\n", ficName);
@@ -34,7 +34,6 @@ int analyseSrc(char *filename){
 	fprintf(ficMakefile,"$(OBJDIR)/%s.o: $(SRCDIR)/%s.cpp", filename, filename);
 
 	strcpy(ligne, "");
-	int i = 0;
 	while (!feof(srcFile)){
 		fgets(ligne,FILENAME_MAX_LENGTH,srcFile);
 		ligne[strlen(ligne)-1]='\0';
