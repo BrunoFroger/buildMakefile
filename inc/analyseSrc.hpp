@@ -9,5 +9,8 @@
 #ifndef analyseSrc_hpp
 #define analyseSrc_hpp
 
+    #include "../inc/main.hpp"
+
+    extern int analyseSrc(structFichierSource filename);
 
 #endif

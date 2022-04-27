@@ -14,10 +14,10 @@
 #include "../inc/main.hpp"
 #include "../inc/analyseParametres.hpp"
 #include "../inc/fichierConfig.hpp"
+#include "../inc/analyseSrc.hpp"
 
-extern int analyseSrc(char *filename);
 
-char tblSrcFiles[NB_FILES_MAX][FILENAME_MAX_LENGTH];
+structFichierSource tblSrcFiles[NB_FILES_MAX];
 char filename[FILENAME_MAX_LENGTH];
 char appName[FILENAME_MAX_LENGTH]="";
 FILE *srcFile;
@@ -75,10 +75,18 @@ int main(int argc, char**argv){
 	analyseParametres(argc, argv);
 	nbSrcFiles=0;
 	// recuperation de la liste des fichiers sources
-	system("ls src/* > listesrc.txt");
+	//if (modeVerbose) printf("debut analyse liste des fichiers sources\n");
+	system("ls src/*.c* > listesrc.txt");
+	system("cat listesrc.txt");
 	srcFile = fopen("listesrc.txt", "r");
+	if (srcFile == NULL){
+		printf("Impossible de creer de fichiers temporaires dans ce projet\n");
+		exit(-1);
+	}
+	if (modeVerbose) printf("construction de la liste des fichiers a traiter\n");
 	while (!feof(srcFile)){
 		fgets(ligne,FILENAME_MAX_LENGTH,srcFile);
+		//if (modeVerbose) printf("detection du fichier à traiter : %s", ligne);
 		if (feof(srcFile)){
 			//std::cout << "fin de fichier on continue\n";
 			continue;
@@ -94,15 +102,20 @@ int main(int argc, char**argv){
 		// suppression de l'extention de fichier
 		strcpy(ligne, tmp);
 		tmp=strchr(ligne,'.');
+		strcpy(tblSrcFiles[nbSrcFiles].ext,&tmp[1]);
+		// suppression du RC dans extension
+		tblSrcFiles[nbSrcFiles].ext[strlen(tblSrcFiles[nbSrcFiles].ext)-1] = '\0';
 		tmp[1]='\0';
 		// suppression du retour chariot dans le nom de fichier
 		if (strlen(ligne) > 0){
 			ligne[strlen(ligne)-1]='\0';
 			//std::cout << "ajout de " << ligne << " au makefile \n";
-			sprintf(tblSrcFiles[nbSrcFiles++],"%s",ligne);
+			strcpy(tblSrcFiles[nbSrcFiles].name, ligne);
+			if (modeVerbose) printf("fichier <%s> avec extention <%s> trouvé\n", tblSrcFiles[nbSrcFiles].name, tblSrcFiles[nbSrcFiles].ext);
+			nbSrcFiles++;
 		}
 	}
-	//std::cout << "fin analyse liste des fichiers sources\n";
+	if (modeVerbose) printf("fin analyse liste des fichiers sources\n");
 	fclose(srcFile);
 	system("rm listesrc.txt");
 	if (nbSrcFiles == 0){
@@ -140,8 +153,11 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"BINDIR=%s\n", binDir);
 	fprintf(ficMakefile,"INSTALLDIR=%s\n", repertoireInstallation);
 	fprintf(ficMakefile,"\n");
-	fprintf(ficMakefile,"SRC=$(wildcard $(SRCDIR)/*.cpp)\n");
-	fprintf(ficMakefile,"TMP=$(patsubst %%.cpp, %%.o, $(SRC))\n");
+	fprintf(ficMakefile,"SRCCPP=$(wildcard $(SRCDIR)/*.cpp)\n");
+	fprintf(ficMakefile,"SRCC=$(wildcard $(SRCDIR)/*.c)\n");
+	fprintf(ficMakefile,"TMPCPP=$(patsubst %%.cpp, %%.o, $(SRCCPP))\n");
+	fprintf(ficMakefile,"TMPC=$(patsubst %%.c, %%.o, $(SRCC))\n");
+	fprintf(ficMakefile,"TMP=$(TMPCPP) $(TMPC)\n");
 	fprintf(ficMakefile,"OBJ=$(patsubst $(SRCDIR)/%%.o, $(OBJDIR)/%%.o, $(TMP))\n");
 	fprintf(ficMakefile,"EXEC = $(BINDIR)/%s\n", appName);
 	fprintf(ficMakefile,"\n");
@@ -157,14 +173,14 @@ int main(int argc, char**argv){
 	///std::cout << "nombre de fichiers trouves " << nbSrcFiles << "\n";
 	int i=0;
 	// analyse des fichiers sources
-	strcpy(filename, tblSrcFiles[i++]);
+	//strcpy(filename, tblSrcFiles[i].name);
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"# Définition des règles pour chaque fichier source\n");
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
-	while (i <= nbSrcFiles){
+	while (i < nbSrcFiles){
 		// on traite ce fichier
-		analyseSrc(filename);
-		strcpy(filename, tblSrcFiles[i++]);
+		analyseSrc(tblSrcFiles[i++]);
+		//strcpy(filename, tblSrcFiles[i++].name);
 	}
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"# Définition des règles utilitaires\n");
@@ -172,6 +188,16 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"clean: \n");
 	fprintf(ficMakefile,"\t@rm -f $(OBJDIR)/* $(BINDIR)/*\n");
 	fprintf(ficMakefile,"\t@echo \"Clean OK\"\n");
+	fprintf(ficMakefile,"\n");
+	fprintf(ficMakefile,"info: \n");
+	fprintf(ficMakefile,"\t@echo \"affichage des variables de makefile\"\n");
+	fprintf(ficMakefile,"\t@echo \"SRCCPP = \" $(SRCCPP)\n");
+	fprintf(ficMakefile,"\t@echo \"SRCC   = \" $(SRCC)\n");
+	fprintf(ficMakefile,"\t@echo \"TMPCPP = \" $(TMPCPP)\n");
+	fprintf(ficMakefile,"\t@echo \"TMPC   = \" $(TMPC)\n");
+	fprintf(ficMakefile,"\t@echo \"TMP    = \" $(TMP)\n");
+	fprintf(ficMakefile,"\t@echo \"OBJ    = \" $(OBJ)\n");
+	fprintf(ficMakefile,"\t@echo \"EXEC   = \" $(EXEC)\n");
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"install: \n");
 	fprintf(ficMakefile,"\t@make\n");

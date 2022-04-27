@@ -14,8 +14,13 @@
 #define FILENAME_MAX_LENGTH		100
 #define LINE_MAX_LENGTH			100
 
+    typedef struct {
+        char name[FILENAME_MAX_LENGTH];
+        char ext[10];
+    } structFichierSource;
 
-    extern char tblSrcFiles[NB_FILES_MAX][FILENAME_MAX_LENGTH];
+    //extern char tblSrcFiles[NB_FILES_MAX][FILENAME_MAX_LENGTH];
+    extern structFichierSource tblSrcFiles[NB_FILES_MAX];
     extern FILE *ficMakefile;
     extern char appName[FILENAME_MAX_LENGTH];
     extern char makefile[FILENAME_MAX_LENGTH];

@@ -1,8 +1,8 @@
 #############################################################
 #                   M a k e f i l e 
 # 
-#         généré automatiquement avec buildMakefile
-#              le 27/04/2022 à 08:38:09
+#         généré automatiquement avec bin/buildMakefile
+#              le 27/04/2022 à 23:46:16
 #              (c) B. Froger 2022
 # 
 #############################################################
@@ -20,8 +20,11 @@ OBJDIR=obj
 BINDIR=bin
 INSTALLDIR=~/bin
 
-SRC=$(wildcard $(SRCDIR)/*.cpp)
-TMP=$(patsubst %.cpp, %.o, $(SRC))
+SRCCPP=$(wildcard $(SRCDIR)/*.cpp)
+SRCC=$(wildcard $(SRCDIR)/*.c)
+TMPCPP=$(patsubst %.cpp, %.o, $(SRCCPP))
+TMPC=$(patsubst %.c, %.o, $(SRCC))
+TMP=$(TMPCPP) $(TMPC)
 OBJ=$(patsubst $(SRCDIR)/%.o, $(OBJDIR)/%.o, $(TMP))
 EXEC = $(BINDIR)/buildMakefile
 
@@ -56,7 +59,12 @@ $(OBJDIR)/fichierConfig.o: $(SRCDIR)/fichierConfig.cpp \
 $(OBJDIR)/main.o: $(SRCDIR)/main.cpp \
 	$(INCDIR)/main.hpp \
 	$(INCDIR)/analyseParametres.hpp \
-	$(INCDIR)/fichierConfig.hpp
+	$(INCDIR)/fichierConfig.hpp \
+	$(INCDIR)/analyseSrc.hpp
+	@$(CC) $(CCFLAGS) $< -c -o $@
+	@echo "Compilation de $< OK"
+
+$(OBJDIR)/test.o: $(SRCDIR)/test.c
 	@$(CC) $(CCFLAGS) $< -c -o $@
 	@echo "Compilation de $< OK"
 
@@ -66,6 +74,16 @@ $(OBJDIR)/main.o: $(SRCDIR)/main.cpp \
 clean: 
 	@rm -f $(OBJDIR)/* $(BINDIR)/*
 	@echo "Clean OK"
+
+info: 
+	@echo "affichage des variables de makefile"
+	@echo "SRCCPP = " $(SRCCPP)
+	@echo "SRCC   = " $(SRCC)
+	@echo "TMPCPP = " $(TMPCPP)
+	@echo "TMPC   = " $(TMPC)
+	@echo "TMP    = " $(TMP)
+	@echo "OBJ    = " $(OBJ)
+	@echo "EXEC   = " $(EXEC)
 
 install: 
 	@make

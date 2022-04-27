@@ -14,7 +14,7 @@
 #include "../inc/main.hpp"
 
 
-int analyseSrc(char *filename){
+int analyseSrc(structFichierSource filename){
 
 	FILE *srcFile;
 	char ligne[LINE_MAX_LENGTH];
@@ -22,7 +22,7 @@ int analyseSrc(char *filename){
 
 	// recherche de include dans le fichier source
 	char ficName[FILENAME_MAX_LENGTH];
-	sprintf(ficName,"%s/%s.cpp", srcDir, filename);
+	sprintf(ficName,"%s/%s.%s", srcDir, filename.name, filename.ext);
 	if (modeVerbose) printf("traitement du fichier [%s]\n", ficName);
 	srcFile = fopen(ficName,"r");
 	if (srcFile == NULL){
@@ -31,7 +31,7 @@ int analyseSrc(char *filename){
 	}
 
 	//std::cout << "creation de l'entree correspondant au fichier " << ficName << "\n";
-	fprintf(ficMakefile,"$(OBJDIR)/%s.o: $(SRCDIR)/%s.cpp", filename, filename);
+	fprintf(ficMakefile,"$(OBJDIR)/%s.o: $(SRCDIR)/%s.%s", filename.name, filename.name, filename.ext);
 
 	strcpy(ligne, "");
 	while (!feof(srcFile)){

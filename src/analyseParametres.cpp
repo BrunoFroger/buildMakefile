@@ -62,7 +62,7 @@ void checkNbParametres(int i, int argc){
 //
 //-----------------------------------
 void analyseParametres(int argc, char **argv){
-    //printf("Analyse des parametres => debut\n");
+    if (modeVerbose) printf("Analyse des parametres => debut\n");
     int i = 1;
     char param[50];
     char tmp[50];
@@ -75,7 +75,7 @@ void analyseParametres(int argc, char **argv){
     if (argc >= 2){
         // il y a des parametres a analyser
         do {
-            if (modeVerbose) printf("traitement du parametre numero %d\n", i);
+            if (modeVerbose) printf("traitement du parametre numero %d (%s)\n", i, argv[i]);
             strcpy(param, argv[i]);
             //printf("analyse de %s\n", param);
             if (param[0] != '-'){
@@ -140,5 +140,5 @@ void analyseParametres(int argc, char **argv){
 		printf( "	%s [AppName]\n",  argv[0]);
 		exit(-1);
 	}
-    //printf("Analyse des parametres => fin\n");
+    if (modeVerbose) printf("Analyse des parametres => fin\n");
 }
