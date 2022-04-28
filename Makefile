@@ -1,9 +1,9 @@
 #############################################################
 #                   M a k e f i l e 
 # 
-#         généré automatiquement avec bin/buildMakefile
-#              le 27/04/2022 à 23:46:16
-#              (c) B. Froger 2022
+#     généré automatiquement le 28/04/2022 à 10:07:18
+#                 (c) B. Froger 
+#         version buildMakefile du 28 Apr 2022
 # 
 #############################################################
 
@@ -64,7 +64,8 @@ $(OBJDIR)/main.o: $(SRCDIR)/main.cpp \
 	@$(CC) $(CCFLAGS) $< -c -o $@
 	@echo "Compilation de $< OK"
 
-$(OBJDIR)/test.o: $(SRCDIR)/test.c
+$(OBJDIR)/tests.o: $(SRCDIR)/tests.c \
+	$(INCDIR)/tests.h
 	@$(CC) $(CCFLAGS) $< -c -o $@
 	@echo "Compilation de $< OK"
 

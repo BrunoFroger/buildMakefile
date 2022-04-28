@@ -49,6 +49,7 @@ dans le makefile généré, les options suivantes sont disponibles :
 * clean : efface les fichiers objet et l'exécutable
 * ALL : génère l'ensemble des fichiers
 * install : build et copie l'exécutable dans le répertoire d'installation (~/bin par default) ce répertoire doit être dans votre path pour que l'application soit utilisable partout sur votre ordinateur.
+* info : affichage des variables utilisées dans le makefile
 
 ## fichier de configuration
 Le fichier de configuration optionnel doit répondre aux contraintes suivantes :

@@ -37,10 +37,18 @@ char binDir[100];
 char ccFlags[100];
 char ldFlags[100];
 bool modeVerbose=false;
+char buildDate[15]=__DATE__;
+char buildDay[5];
+char buildMonth[5];
+char buildYear[10];
 
 int main(int argc, char**argv){
 
 	//printf("Repertoire d'installation par defaut = %s \n", repertoireInstallation);
+	// definition de la date de compilation
+	strncpy(buildDay, &buildDate[4], 2); 
+	strncpy(buildMonth, buildDate, 3); 
+	strncpy(buildYear, &buildDate[7], 4); 
 
 	// recuperation de la date de génération
 	time_t rawtime;
@@ -48,7 +56,7 @@ int main(int argc, char**argv){
 	char bufferDate [100];
 	time (&rawtime);
 	timeinfo = localtime (&rawtime);
-	strftime (bufferDate,100,"le %d/%m/%Y à %T",timeinfo);
+	strftime (bufferDate,100,"%d/%m/%Y à %T",timeinfo);
 
 	strcpy(srcDir, "src");
 	strcpy(incDir, "inc");
@@ -77,7 +85,7 @@ int main(int argc, char**argv){
 	// recuperation de la liste des fichiers sources
 	//if (modeVerbose) printf("debut analyse liste des fichiers sources\n");
 	system("ls src/*.c* > listesrc.txt");
-	system("cat listesrc.txt");
+	if (modeVerbose) system("cat listesrc.txt");
 	srcFile = fopen("listesrc.txt", "r");
 	if (srcFile == NULL){
 		printf("Impossible de creer de fichiers temporaires dans ce projet\n");
@@ -134,9 +142,9 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"#############################################################\n");
 	fprintf(ficMakefile,"#                   M a k e f i l e \n");
 	fprintf(ficMakefile,"# \n");
-	fprintf(ficMakefile,"#         généré automatiquement avec %s\n", argv[0]);
-	fprintf(ficMakefile,"#              %s\n", bufferDate);
-	fprintf(ficMakefile,"#              (c) B. Froger 2022\n");
+	fprintf(ficMakefile,"#     généré automatiquement le %s\n", bufferDate);
+	fprintf(ficMakefile,"#                 (c) B. Froger \n");
+	fprintf(ficMakefile,"#         version %s du %s %s %s\n", argv[0], buildDay, buildMonth, buildYear);
 	fprintf(ficMakefile,"# \n");
 	fprintf(ficMakefile,"#############################################################\n");
 	fprintf(ficMakefile,"\n");
