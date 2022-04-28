@@ -1,9 +1,9 @@
 #############################################################
 #                   M a k e f i l e 
 # 
-#     généré automatiquement le 28/04/2022 à 10:07:18
+#     généré automatiquement le 28/04/2022 à 14:21:51
+#         avec buildMakefile (version du 28 Apr 2022)
 #                 (c) B. Froger 
-#         version buildMakefile du 28 Apr 2022
 # 
 #############################################################
 

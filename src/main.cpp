@@ -143,8 +143,8 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"#                   M a k e f i l e \n");
 	fprintf(ficMakefile,"# \n");
 	fprintf(ficMakefile,"#     généré automatiquement le %s\n", bufferDate);
+	fprintf(ficMakefile,"#         avec %s (version du %s %s %s)\n", argv[0], buildDay, buildMonth, buildYear);
 	fprintf(ficMakefile,"#                 (c) B. Froger \n");
-	fprintf(ficMakefile,"#         version %s du %s %s %s\n", argv[0], buildDay, buildMonth, buildYear);
 	fprintf(ficMakefile,"# \n");
 	fprintf(ficMakefile,"#############################################################\n");
 	fprintf(ficMakefile,"\n");
