@@ -1,8 +1,8 @@
 #############################################################
 #                   M a k e f i l e 
 # 
-#     généré automatiquement le 28/04/2022 à 14:21:51
-#         avec buildMakefile (version du 28 Apr 2022)
+#     généré automatiquement le 29/04/2022 à 13:56:38
+#         avec buildMakefile (version du 29 Apr 2022)
 #                 (c) B. Froger 
 # 
 #############################################################
@@ -77,14 +77,22 @@ clean:
 	@echo "Clean OK"
 
 info: 
-	@echo "affichage des variables de makefile"
-	@echo "SRCCPP = " $(SRCCPP)
-	@echo "SRCC   = " $(SRCC)
-	@echo "TMPCPP = " $(TMPCPP)
-	@echo "TMPC   = " $(TMPC)
-	@echo "TMP    = " $(TMP)
-	@echo "OBJ    = " $(OBJ)
-	@echo "EXEC   = " $(EXEC)
+	@echo "Liste des variables du makefile"
+	@echo "CC         = " $(CC)
+	@echo "CCFLAGS    = " $(CCFLAGS)
+	@echo "LDFLAGS    = " $(LDFLAGS)
+	@echo "SRCDIR     = " $(SRCDIR)
+	@echo "INCDIR     = " $(INCDIR)
+	@echo "OBJDIR     = " $(OBJDIR)
+	@echo "BINDIR     = " $(BINDIR)
+	@echo "INSTALLDIR = " $(INSTALLDIR)
+	@echo "SRCCPP     = " $(SRCCPP)
+	@echo "SRCC       = " $(SRCC)
+	@echo "TMPCPP     = " $(TMPCPP)
+	@echo "TMPC       = " $(TMPC)
+	@echo "TMP        = " $(TMP)
+	@echo "OBJ        = " $(OBJ)
+	@echo "EXEC       = " $(EXEC)
 
 install: 
 	@make

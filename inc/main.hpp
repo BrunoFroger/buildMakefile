@@ -10,7 +10,7 @@
 #ifndef main_hpp
 #define main_hpp
 
-#define NB_FILES_MAX			100
+#define NB_FILES_MAX			200
 #define FILENAME_MAX_LENGTH		100
 #define LINE_MAX_LENGTH			100
 
