@@ -12,20 +12,43 @@
 #include <cstring>
 #include "../inc/main.hpp"
 
+
 //-----------------------------------
 //
 //      setVariable
 //
 //-----------------------------------
 void setVariable(char *varName, char *varValue){
+    char commande[200];
     if (strcmp(varName, "SRCDIR") == 0){
         strcpy(srcDir, varValue);
+        if (fopen (srcDir, "r") == NULL){
+            printf("Le repertoire %s n'existe pas, on le cree ... \n", srcDir);
+            sprintf(commande, "mkdir %s", srcDir);
+            system(commande);
+        }
     } else if (strcmp(varName, "INCDIR") == 0){
         strcpy(incDir, varValue);
+        if (fopen (incDir, "r") == NULL){
+            printf("Le repertoire %s n'existe pas, on le cree ... \n", incDir);
+            sprintf(commande, "mkdir %s", incDir);
+            system(commande);
+        }
     } else if (strcmp(varName, "OBJDIR") == 0){
         strcpy(objDir, varValue);
+        if (fopen (objDir, "r") == NULL){
+            printf("Le repertoire %s n'existe pas, on le cree ... \n", objDir);
+            sprintf(commande, "mkdir %s", objDir);
+            system(commande);
+        }
     } else if (strcmp(varName, "BINDIR") == 0){
         strcpy(binDir, varValue);
+        strcpy(binDir, varValue);
+        if (fopen (binDir, "r") == NULL){
+            printf("Le repertoire %s n'existe pas, on le cree ... \n", binDir);
+            sprintf(commande, "mkdir %s", binDir);
+            system(commande);
+        }
     } else if (strcmp(varName, "INSTALLDIR") == 0){
         strcpy(repertoireInstallation, varValue);
     } else if (strcmp(varName, "MAKEFILENAME") == 0){
@@ -35,9 +58,11 @@ void setVariable(char *varName, char *varValue){
     } else if (strcmp(varName, "APPNAME") == 0){
         strcpy(appName, varValue);
     } else if (strcmp(varName, "CCFLAGS") == 0){
-        strcpy(ccFlags, varValue);
+        strcat(ccFlags, varValue);
+        strcat(ccFlags, " ");
     } else if (strcmp(varName, "LDFLAGS") == 0){
-        strcpy(ldFlags, varValue);
+        strcat(ldFlags, varValue);
+        strcat(ldFlags, " ");
     } else {
         printf("nom de variable inconnu : %s \n", varName);
         exit(-1);
@@ -70,6 +95,7 @@ void litFichierConfig(char *fichier){
     while (!feof(ficConfig)){
         fgets(ligne, 100, ficConfig);
         if (ligne[strlen(ligne) - 1] == '\n') ligne [strlen(ligne) - 1] = '\0';
+        if (ligne[0] == '#') continue;
         //printf("------------------------------\n");
         //printf("Analyse de la ligne <%s>", ligne);
         // suppression des blancs en denbut de ligne

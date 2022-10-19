@@ -62,7 +62,7 @@ int main(int argc, char**argv){
 	strcpy(incDir, "inc");
 	strcpy(objDir, "obj");
 	strcpy(binDir, "bin");
-	strcpy(ccFlags, "-Wall");
+	//strcpy(ccFlags, "-Wall");
 	strcpy(ldFlags, "");
 	char *tmp = strrchr(argv[0], '/');
 	if (tmp == NULL){
@@ -84,7 +84,9 @@ int main(int argc, char**argv){
 	nbSrcFiles=0;
 	// recuperation de la liste des fichiers sources
 	//if (modeVerbose) printf("debut analyse liste des fichiers sources\n");
-	system("ls src/*.c* > listesrc.txt");
+	char commande[200];
+	sprintf(commande, "ls %s/*.c* > listesrc.txt", srcDir);
+	system(commande);
 	if (modeVerbose) system("cat listesrc.txt");
 	srcFile = fopen("listesrc.txt", "r");
 	if (srcFile == NULL){
