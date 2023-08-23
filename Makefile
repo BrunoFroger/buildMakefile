@@ -1,8 +1,8 @@
 #############################################################
 #                   M a k e f i l e 
 # 
-#     généré automatiquement le 29/04/2022 à 13:56:38
-#         avec buildMakefile (version du 29 Apr 2022)
+#     généré automatiquement le 18/08/2023 à 16:44:41
+#         avec buildMakefile (version du 18 Aug 2023)
 #                 (c) B. Froger 
 # 
 #############################################################
@@ -10,16 +10,19 @@
 #------------------------------------------------------------
 # Définition des variables
 #------------------------------------------------------------
+# de compilation
 CC=gcc
-CCFLAGS=-Wall -Werror
+CCFLAGS=-Wall -Werror 
 LDFLAGS=
 
+# de definition des répertoires
 SRCDIR=src
 INCDIR=inc
 OBJDIR=obj
 BINDIR=bin
 INSTALLDIR=~/bin
 
+# de definition des listes de fichiers a traiter
 SRCCPP=$(wildcard $(SRCDIR)/*.cpp)
 SRCC=$(wildcard $(SRCDIR)/*.c)
 TMPCPP=$(patsubst %.cpp, %.o, $(SRCCPP))
@@ -28,10 +31,13 @@ TMP=$(TMPCPP) $(TMPC)
 OBJ=$(patsubst $(SRCDIR)/%.o, $(OBJDIR)/%.o, $(TMP))
 EXEC = $(BINDIR)/buildMakefile
 
+# des autres variables
+ENTETE = $(info ******************************) $(info *) $(info *         M A K E) $(info *) $(info ******************************)
+
 #------------------------------------------------------------
 # Définition des règles génériques
 #------------------------------------------------------------
-ALL : $(EXEC)
+ALL : $(info $(ENTETE)) $(EXEC)
 
 $(EXEC): $(OBJ)
 	@$(CC) $(LDFLAGS) $(OBJ) -o $@

@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <time.h>
+#include <dirent.h>
 
 #include "../inc/main.hpp"
 #include "../inc/analyseParametres.hpp"
@@ -81,6 +82,25 @@ int main(int argc, char**argv){
 	litFichierConfig(configFilename);
 
 	analyseParametres(argc, argv);
+	// creation des repertoires s'ils n'existent pas
+	
+	DIR* dir;
+	dir = opendir("src");
+	if (dir) closedir(dir);
+	else (system("mkdir src"));
+
+	dir = opendir("inc");
+	if (dir) closedir(dir);
+	else (system("mkdir inc"));
+
+	dir = opendir("obj");
+	if (dir) closedir(dir);
+	else (system("mkdir obj"));
+
+	dir = opendir("bin");
+	if (dir) closedir(dir);
+	else (system("mkdir bin"));
+
 	nbSrcFiles=0;
 	// recuperation de la liste des fichiers sources
 	//if (modeVerbose) printf("debut analyse liste des fichiers sources\n");
@@ -153,16 +173,19 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"# Définition des variables\n");
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
+	fprintf(ficMakefile,"# de compilation\n");
 	fprintf(ficMakefile,"CC=%s\n", compilateur);
 	fprintf(ficMakefile,"CCFLAGS=%s\n", ccFlags);
 	fprintf(ficMakefile,"LDFLAGS=%s\n", ldFlags);
 	fprintf(ficMakefile,"\n");
+	fprintf(ficMakefile,"# de definition des répertoires\n");
 	fprintf(ficMakefile,"SRCDIR=%s\n", srcDir);
 	fprintf(ficMakefile,"INCDIR=%s\n", incDir);
 	fprintf(ficMakefile,"OBJDIR=%s\n", objDir);
 	fprintf(ficMakefile,"BINDIR=%s\n", binDir);
 	fprintf(ficMakefile,"INSTALLDIR=%s\n", repertoireInstallation);
 	fprintf(ficMakefile,"\n");
+	fprintf(ficMakefile,"# de definition des listes de fichiers a traiter\n");
 	fprintf(ficMakefile,"SRCCPP=$(wildcard $(SRCDIR)/*.cpp)\n");
 	fprintf(ficMakefile,"SRCC=$(wildcard $(SRCDIR)/*.c)\n");
 	fprintf(ficMakefile,"TMPCPP=$(patsubst %%.cpp, %%.o, $(SRCCPP))\n");
@@ -171,10 +194,13 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"OBJ=$(patsubst $(SRCDIR)/%%.o, $(OBJDIR)/%%.o, $(TMP))\n");
 	fprintf(ficMakefile,"EXEC = $(BINDIR)/%s\n", appName);
 	fprintf(ficMakefile,"\n");
+	fprintf(ficMakefile,"# des autres variables\n");
+	fprintf(ficMakefile,"ENTETE = $(info ******************************) $(info *) $(info *   M A K E (%s)) $(info *) $(info ******************************)\n", appName);
+	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"# Définition des règles génériques\n");
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
-	fprintf(ficMakefile,"ALL : $(EXEC)\n");
+	fprintf(ficMakefile,"ALL : $(info $(ENTETE)) $(EXEC)\n");
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"$(EXEC): $(OBJ)\n");
 	fprintf(ficMakefile,"\t%s\n", ligneLink);
