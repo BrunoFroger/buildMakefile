@@ -1,8 +1,8 @@
 #############################################################
 #                   M a k e f i l e 
 # 
-#     généré automatiquement le 18/08/2023 à 16:44:41
-#         avec buildMakefile (version du 18 Aug 2023)
+#     généré automatiquement le 23/08/2023 à 15:00:58
+#         avec buildMakefile (version du 23 Aug 2023)
 #                 (c) B. Froger 
 # 
 #############################################################
@@ -11,8 +11,8 @@
 # Définition des variables
 #------------------------------------------------------------
 # de compilation
-CC=gcc
-CCFLAGS=-Wall -Werror 
+CC=g++
+CCFLAGS=-Wall 
 LDFLAGS=
 
 # de definition des répertoires
@@ -32,7 +32,7 @@ OBJ=$(patsubst $(SRCDIR)/%.o, $(OBJDIR)/%.o, $(TMP))
 EXEC = $(BINDIR)/buildMakefile
 
 # des autres variables
-ENTETE = $(info ******************************) $(info *) $(info *         M A K E) $(info *) $(info ******************************)
+ENTETE = $(info ******************************) $(info *) $(info *   M A K E (buildMakefile)) $(info *) $(info ******************************)
 
 #------------------------------------------------------------
 # Définition des règles génériques

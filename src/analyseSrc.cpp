@@ -21,7 +21,7 @@ int analyseSrc(structFichierSource filename){
 	char tampon[LINE_MAX_LENGTH];
 
 	// recherche de include dans le fichier source
-	char ficName[FILENAME_MAX_LENGTH];
+	char ficName[FILENAME_MAX_LENGTH * 2 + 10];
 	sprintf(ficName,"%s/%s.%s", srcDir, filename.name, filename.ext);
 	if (modeVerbose) printf("traitement du fichier [%s]\n", ficName);
 	srcFile = fopen(ficName,"r");
