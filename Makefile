@@ -1,8 +1,8 @@
 #############################################################
 #                   M a k e f i l e 
 # 
-#     généré automatiquement le 03/11/2023 à 16:24:02
-#         avec buildMakefile (version du  3 Nov 2023)
+#     généré automatiquement le 03/11/2023 à 16:45:26
+#         avec bin/buildMakefile (version du  3 Nov 2023)
 #                 (c) B. Froger 
 # 
 #############################################################
@@ -32,7 +32,7 @@ OBJ=$(patsubst $(SRCDIR)/%.o, $(OBJDIR)/%.o, $(TMP))
 EXEC = $(BINDIR)/buildMakefile
 
 # des autres variables
-ENTETE = $(info ******************************) $(info *) $(info *   M A K E (buildMakefile)) $(info *) $(info ******************************)
+ENTETE = $(info ******************************) $(info *) $(info *   M A K E (buildMakefile $(MAKECMDGOALS))) $(info *) $(info ******************************)
 
 #------------------------------------------------------------
 # Définition des règles génériques
@@ -108,7 +108,7 @@ info:
 install: 
 	@make
 	@rm -f $(INSTALLDIR)/buildMakefile
-	@cp -f $(BINDIR)/buildMakefile $(BINDIR)
+	@cp -f $(BINDIR)/buildMakefile $(INSTALLDIR)
 	@chmod +x $(INSTALLDIR)/buildMakefile
-	@echo "installation de buildMakefile dans ~/bin OK"
+	@echo "installation de buildMakefile dans $(INSTALLDIR) OK"
 	@echo ""

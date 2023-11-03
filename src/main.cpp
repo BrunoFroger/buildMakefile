@@ -195,7 +195,7 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"EXEC = $(BINDIR)/%s\n", appName);
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"# des autres variables\n");
-	fprintf(ficMakefile,"ENTETE = $(info ******************************) $(info *) $(info *   M A K E (%s)) $(info *  $(MODULE) $(info *) $(info ******************************)\n", appName);
+	fprintf(ficMakefile,"ENTETE = $(info ******************************) $(info *) $(info *   M A K E (%s $(MAKECMDGOALS))) $(info *) $(info ******************************)\n", appName);
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"# Définition des règles génériques\n");
@@ -251,9 +251,9 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"install: \n");
 	fprintf(ficMakefile,"\t@make\n");
 	fprintf(ficMakefile,"\t@rm -f $(INSTALLDIR)/%s\n", appName);
-	fprintf(ficMakefile,"\t@cp -f $(BINDIR)/%s $(BINDIR)\n", appName);
+	fprintf(ficMakefile,"\t@cp -f $(BINDIR)/%s $(INSTALLDIR)\n", appName);
 	fprintf(ficMakefile,"\t@chmod +x $(INSTALLDIR)/%s\n", appName);
-	fprintf(ficMakefile,"\t@echo \"installation de %s dans %s OK\"\n", appName, repertoireInstallation);
+	fprintf(ficMakefile,"\t@echo \"installation de %s dans $(INSTALLDIR) OK\"\n", appName);
 	fprintf(ficMakefile,"\t@echo \"\"\n");
 
 	printf("fichier %s généré avec succès \n", makefile);
