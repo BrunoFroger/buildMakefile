@@ -1,8 +1,8 @@
 #############################################################
 #                   M a k e f i l e 
 # 
-#     généré automatiquement le 23/08/2023 à 15:00:58
-#         avec buildMakefile (version du 23 Aug 2023)
+#     généré automatiquement le 03/11/2023 à 15:52:43
+#         avec bin/buildMakefile (version du  3 Nov 2023)
 #                 (c) B. Froger 
 # 
 #############################################################
@@ -37,7 +37,9 @@ ENTETE = $(info ******************************) $(info *) $(info *   M A K E (bu
 #------------------------------------------------------------
 # Définition des règles génériques
 #------------------------------------------------------------
-ALL : $(info $(ENTETE)) $(EXEC)
+ALL : $(ENTETE) $(EXEC)
+	@echo "Application $(EXEC) OK"
+	@echo ""
 
 $(EXEC): $(OBJ)
 	@$(CC) $(LDFLAGS) $(OBJ) -o $@
@@ -103,6 +105,7 @@ info:
 install: 
 	@make
 	@rm -f $(INSTALLDIR)/buildMakefile
-	@cp -f $(BINDIR)/buildMakefile ~/bin
+	@cp -f $(BINDIR)/buildMakefile $(INSTALLDIR)
 	@chmod +x $(INSTALLDIR)/buildMakefile
-	@echo "installation de buildMakefile dans ~/bin OK"
+	@echo "installation de buildMakefile dans $(INSTALLDIR) OK"
+	@echo ""

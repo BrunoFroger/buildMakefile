@@ -72,7 +72,7 @@ int main(int argc, char**argv){
 		tmp+=1;
 	}
 
-	sprintf(configFilename,"%s.cfg", tmp);
+	snprintf(configFilename, FILENAME_MAX_LENGTH, "%s.cfg", tmp);
 
 	// detection du mode verbose
 	for (int i = 0 ; i < argc ; i++){
@@ -105,7 +105,7 @@ int main(int argc, char**argv){
 	// recuperation de la liste des fichiers sources
 	//if (modeVerbose) printf("debut analyse liste des fichiers sources\n");
 	char commande[200];
-	sprintf(commande, "ls %s/*.c* > listesrc.txt", srcDir);
+	snprintf(commande, 100, "ls %s/*.c* > listesrc.txt", srcDir);
 	system(commande);
 	if (modeVerbose) system("cat listesrc.txt");
 	srcFile = fopen("listesrc.txt", "r");
@@ -152,8 +152,8 @@ int main(int argc, char**argv){
 		printf("ERROR : aucun fichier source trouves dans src/...\n");
 		return -1;
 	}
-	sprintf(ligneCompilation, "@$(CC) $(CCFLAGS) $< -c -o $@");
-	sprintf(ligneLink, "@$(CC) $(LDFLAGS) $(OBJ) -o $@");
+	snprintf(ligneCompilation, 100, "@$(CC) $(CCFLAGS) $< -c -o $@");
+	snprintf(ligneLink, 100, "@$(CC) $(LDFLAGS) $(OBJ) -o $@");
 	// ecriture de l'entete du fichier makefile
 	//std::cout << "creation entete du makefile \n";
 	ficMakefile = fopen(makefile,"w");
@@ -200,11 +200,14 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"# Définition des règles génériques\n");
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
-	fprintf(ficMakefile,"ALL : $(info $(ENTETE)) $(EXEC)\n");
+	fprintf(ficMakefile,"ALL : $(ENTETE) $(EXEC)\n");
+	fprintf(ficMakefile,"\t@echo \"Application $(EXEC) OK\"\n");
+	fprintf(ficMakefile,"\t@echo \"\"\n");
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"$(EXEC): $(OBJ)\n");
 	fprintf(ficMakefile,"\t%s\n", ligneLink);
 	fprintf(ficMakefile,"\t@echo \"Edition de lien de $@ OK\"\n");
+	fprintf(ficMakefile,"\t@echo \"\"\n");
 	fprintf(ficMakefile,"\n");
 	///std::cout << "nombre de fichiers trouves " << nbSrcFiles << "\n";
 	int i=0;
@@ -224,6 +227,7 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"clean: \n");
 	fprintf(ficMakefile,"\t@rm -f $(OBJDIR)/* $(BINDIR)/*\n");
 	fprintf(ficMakefile,"\t@echo \"Clean OK\"\n");
+	fprintf(ficMakefile,"\t@echo \"\"\n");
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"info: \n");
 	fprintf(ficMakefile,"\t@echo \"Liste des variables du makefile\"\n");
@@ -242,13 +246,15 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"\t@echo \"TMP        = \" $(TMP)\n");
 	fprintf(ficMakefile,"\t@echo \"OBJ        = \" $(OBJ)\n");
 	fprintf(ficMakefile,"\t@echo \"EXEC       = \" $(EXEC)\n");
+	fprintf(ficMakefile,"\t@echo \"\"\n");
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"install: \n");
 	fprintf(ficMakefile,"\t@make\n");
 	fprintf(ficMakefile,"\t@rm -f $(INSTALLDIR)/%s\n", appName);
-	fprintf(ficMakefile,"\t@cp -f $(BINDIR)/%s %s\n", appName, repertoireInstallation);
+	fprintf(ficMakefile,"\t@cp -f $(BINDIR)/%s $(BINDIR)\n", appName);
 	fprintf(ficMakefile,"\t@chmod +x $(INSTALLDIR)/%s\n", appName);
 	fprintf(ficMakefile,"\t@echo \"installation de %s dans %s OK\"\n", appName, repertoireInstallation);
+	fprintf(ficMakefile,"\t@echo \"\"\n");
 
 	printf("fichier %s généré avec succès \n", makefile);
 }
