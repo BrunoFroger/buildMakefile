@@ -79,51 +79,51 @@ void analyseParametres(int argc, char **argv){
             strcpy(param, argv[i]);
             //printf("analyse de %s\n", param);
             if (param[0] != '-'){
-                sprintf(appName,"%s", argv[i]);
+                snprintf(appName, FILENAME_MAX_LENGTH, "%s", argv[i]);
             } else {
                 //printf("gestion d'une option %s\n", param);
                 switch(param[1]){
                     case 'b' : // change repertoire des fichiers binaire
                         checkNbParametres(i, argc);
-                        sprintf(binDir, "%s", argv[++i]);
+                        snprintf(binDir, 100, "%s", argv[++i]);
                         break;
                     case 'c' : // change nom du compilateur
                         checkNbParametres(i, argc);
-                        sprintf(compilateur, "%s", argv[++i]);
+                        snprintf(compilateur, 10, "%s", argv[++i]);
                         break;
                     case 'd' : // change repertoire d'installation
                         checkNbParametres(i, argc);
-                        sprintf(repertoireInstallation, "%s", argv[++i]);
+                        snprintf(repertoireInstallation, 100, "%s", argv[++i]);
                         //printf("nouveau repertoire d'installation : %s \n", repertoireInstallation);
                         break;
                     case 'e' : // change ccFlags
                         checkNbParametres(i, argc);
                         strcpy(tmp, ccFlags);
-                        sprintf(ccFlags, "%s -%s", tmp, argv[++i]);
+                        snprintf(ccFlags, 100, "%s -%s", tmp, argv[++i]);
                         break;
                     case 'f' : // change nom du fichier makefile généré
                         checkNbParametres(i, argc);
-                        sprintf(makefile, "%s", argv[++i]);
+                        snprintf(makefile, 100, "%s", argv[++i]);
                         break;
                     case 'h' : // aide
                         aide(argv[0]);
                         break;
                     case 'i' : // change repertoire des fichiers include
                         checkNbParametres(i, argc);
-                        sprintf(incDir, "%s", argv[++i]);
+                        snprintf(incDir, 100, "%s", argv[++i]);
                         break;
                     case 'l' : // change ldFlags
                         checkNbParametres(i, argc);
                         strcpy(tmp, ldFlags);
-                        sprintf(ldFlags, "%s -%s", tmp, argv[++i]);
+                        snprintf(ldFlags, 100, "%s -%s", tmp, argv[++i]);
                         break;
                     case 'o' : // change repertoire des fichiers objet
                         checkNbParametres(i, argc);
-                        sprintf(objDir, "%s", argv[++i]);
+                        snprintf(objDir, 100, "%s", argv[++i]);
                         break;
                     case 's' : // change repertoire des fichiers source
                         checkNbParametres(i, argc);
-                        sprintf(srcDir, "%s", argv[++i]);
+                        snprintf(srcDir, 100, "%s", argv[++i]);
                         break;
                     case 'v' : // active mode verbose
                         modeVerbose=true;

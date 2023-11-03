@@ -1,8 +1,8 @@
 #############################################################
 #                   M a k e f i l e 
 # 
-#     généré automatiquement le 03/11/2023 à 15:52:43
-#         avec bin/buildMakefile (version du  3 Nov 2023)
+#     généré automatiquement le 03/11/2023 à 16:24:02
+#         avec buildMakefile (version du  3 Nov 2023)
 #                 (c) B. Froger 
 # 
 #############################################################
@@ -11,7 +11,7 @@
 # Définition des variables
 #------------------------------------------------------------
 # de compilation
-CC=g++
+CC=gcc
 CCFLAGS=-Wall 
 LDFLAGS=
 
@@ -44,6 +44,7 @@ ALL : $(ENTETE) $(EXEC)
 $(EXEC): $(OBJ)
 	@$(CC) $(LDFLAGS) $(OBJ) -o $@
 	@echo "Edition de lien de $@ OK"
+	@echo ""
 
 #------------------------------------------------------------
 # Définition des règles pour chaque fichier source
@@ -83,6 +84,7 @@ $(OBJDIR)/tests.o: $(SRCDIR)/tests.c \
 clean: 
 	@rm -f $(OBJDIR)/* $(BINDIR)/*
 	@echo "Clean OK"
+	@echo ""
 
 info: 
 	@echo "Liste des variables du makefile"
@@ -101,11 +103,12 @@ info:
 	@echo "TMP        = " $(TMP)
 	@echo "OBJ        = " $(OBJ)
 	@echo "EXEC       = " $(EXEC)
+	@echo ""
 
 install: 
 	@make
 	@rm -f $(INSTALLDIR)/buildMakefile
-	@cp -f $(BINDIR)/buildMakefile $(INSTALLDIR)
+	@cp -f $(BINDIR)/buildMakefile $(BINDIR)
 	@chmod +x $(INSTALLDIR)/buildMakefile
-	@echo "installation de buildMakefile dans $(INSTALLDIR) OK"
+	@echo "installation de buildMakefile dans ~/bin OK"
 	@echo ""

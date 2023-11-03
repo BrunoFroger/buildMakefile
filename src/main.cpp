@@ -195,7 +195,7 @@ int main(int argc, char**argv){
 	fprintf(ficMakefile,"EXEC = $(BINDIR)/%s\n", appName);
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"# des autres variables\n");
-	fprintf(ficMakefile,"ENTETE = $(info ******************************) $(info *) $(info *   M A K E (%s)) $(info *) $(info ******************************)\n", appName);
+	fprintf(ficMakefile,"ENTETE = $(info ******************************) $(info *) $(info *   M A K E (%s)) $(info *  $(MODULE) $(info *) $(info ******************************)\n", appName);
 	fprintf(ficMakefile,"\n");
 	fprintf(ficMakefile,"#------------------------------------------------------------\n");
 	fprintf(ficMakefile,"# Définition des règles génériques\n");

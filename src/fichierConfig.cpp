@@ -24,21 +24,21 @@ void setVariable(char *varName, char *varValue){
         strcpy(srcDir, varValue);
         if (fopen (srcDir, "r") == NULL){
             printf("Le repertoire %s n'existe pas, on le cree ... \n", srcDir);
-            sprintf(commande, "mkdir %s", srcDir);
+            snprintf(commande, 100, "mkdir %s", srcDir);
             system(commande);
         }
     } else if (strcmp(varName, "INCDIR") == 0){
         strcpy(incDir, varValue);
         if (fopen (incDir, "r") == NULL){
             printf("Le repertoire %s n'existe pas, on le cree ... \n", incDir);
-            sprintf(commande, "mkdir %s", incDir);
+            snprintf(commande, 100, "mkdir %s", incDir);
             system(commande);
         }
     } else if (strcmp(varName, "OBJDIR") == 0){
         strcpy(objDir, varValue);
         if (fopen (objDir, "r") == NULL){
             printf("Le repertoire %s n'existe pas, on le cree ... \n", objDir);
-            sprintf(commande, "mkdir %s", objDir);
+            snprintf(commande, 100, "mkdir %s", objDir);
             system(commande);
         }
     } else if (strcmp(varName, "BINDIR") == 0){
@@ -46,7 +46,7 @@ void setVariable(char *varName, char *varValue){
         strcpy(binDir, varValue);
         if (fopen (binDir, "r") == NULL){
             printf("Le repertoire %s n'existe pas, on le cree ... \n", binDir);
-            sprintf(commande, "mkdir %s", binDir);
+            snprintf(commande, 100, "mkdir %s", binDir);
             system(commande);
         }
     } else if (strcmp(varName, "INSTALLDIR") == 0){
