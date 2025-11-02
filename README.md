@@ -74,4 +74,7 @@ Le fichier de configuration optionnel doit répondre aux contraintes suivantes :
     - LDFLAGS ("" par default) : modifie les flags de l'édition de liens
 * les variables non définies dans ce fichier prennent leur valeur par défaut
 
-
+## Génération de l'executable
+pour générer l'executable buildmakefile, utilsez la commande suivante :
+make => génération de l'executable 
+make install => copie de l'executable dans le repertoire ~/bin (par default) modifiable dans le fichier buildmakefile.cfg
