@@ -1,4 +1,4 @@
 .vscode
 obj/*
-bin/*
 makefile.result
+.DS_Store
